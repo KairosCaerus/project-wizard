@@ -369,7 +369,7 @@ MonoBehaviour:
   canMove: 1
   canMoveHorizontal: 1
   canMoveVertical: 1
-  cam: {fileID: 519420031}
+  cam: {fileID: 0}
 --- !u!61 &966907793
 BoxCollider2D:
   m_ObjectHideFlags: 0
