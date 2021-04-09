@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool canMoveVertical = true;
 
     Rigidbody2D rb;
+    public Camera cam;
+
+    Vector2 mPos;
 
     enum Direction
     {
@@ -35,13 +38,20 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
             movePlayer(movementInput);
+
+        Vector2 aimDir = mPos - rb.position;
+        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
     }
 
     void UpdateInput()
     {
-        movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        mPos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    
     void movePlayer(Vector2 displacement)
     {
         Vector2 movement = new Vector2(canMoveHorizontal ? displacement.x : 0, canMoveVertical ? displacement.y : 0);
